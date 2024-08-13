@@ -18,13 +18,13 @@ describe ActiveGraph::Migrations::Schema do
   let(:fulltext_index) { "CREATE FULLTEXT INDEX `fulltext_index` FOR (n:`Friend`) ON EACH [n.`name`] OPTIONS {indexConfig: {`fulltext.analyzer`: 'swedish',`fulltext.eventually_consistent`: false}, indexProvider: 'fulltext-1.0'}" }
   let(:text_index) { "CREATE TEXT INDEX `text_index` FOR ()-[r:`KNOWS`]-() ON (r.`city`) OPTIONS {indexConfig: {}, indexProvider: 'text-2.0'}" }
 
-  let(:unique_constraint) { "CREATE CONSTRAINT `unique_constraint` FOR (n:`Person`) REQUIRE (n.`name`) IS UNIQUE OPTIONS {indexConfig: {}, indexProvider: 'range-1.0'}" }
+  let(:unique_constraint) { 'CREATE CONSTRAINT `unique_constraint` FOR (n:`Person`) REQUIRE (n.`name`) IS UNIQUE' }
   let(:not_null_rel_prop_constraint) { 'CREATE CONSTRAINT `not_null_rel_prop_constraint` FOR ()-[r:`LIKED`]-() REQUIRE (r.`when`) IS NOT NULL' }
   let(:not_null_node_prop_constraint) { 'CREATE CONSTRAINT `not_null_node_prop_constraint` FOR (n:`Person`) REQUIRE (n.`name`) IS NOT NULL' }
-  let(:node_key_constraint) { "CREATE CONSTRAINT `node_key_constraint` FOR (n:`Person`) REQUIRE (n.`name`, n.`surname`) IS NODE KEY OPTIONS {indexConfig: {}, indexProvider: 'range-1.0'}" }
+  let(:node_key_constraint) { 'CREATE CONSTRAINT `node_key_constraint` FOR (n:`Person`) REQUIRE (n.`name`, n.`surname`) IS NODE KEY' }
 
   if ActiveGraph::Base.version?('<5')
-    let(:text_index) { "CREATE TEXT INDEX `text_index` FOR ()-[r:`KNOWS`]-() ON (r.`city`)" }
+    let(:text_index) { 'CREATE TEXT INDEX `text_index` FOR ()-[r:`KNOWS`]-() ON (r.`city`)' }
   end
 
   if ActiveGraph::Base.version?('<4.4')
@@ -39,17 +39,17 @@ describe ActiveGraph::Migrations::Schema do
   end
 
   if ActiveGraph::Base.version?('<4.3')
-    let(:range_index) { "INDEX FOR (n:Person) ON (n.nickname)" }
+    let(:range_index) { 'INDEX FOR (n:Person) ON (n.nickname)' }
     let(:fulltext_index) {}
 
-    let(:unique_constraint) { "CONSTRAINT ON (n:Person) ASSERT (n.name) IS UNIQUE" }
+    let(:unique_constraint) { 'CONSTRAINT ON (n:Person) ASSERT (n.name) IS UNIQUE' }
     let(:not_null_rel_prop_constraint) {}
     let(:not_null_node_prop_constraint) {}
     let(:node_key_constraint) {}
   end
 
   if ActiveGraph::Base.version?('<4')
-    let(:range_index) { "INDEX ON :Person(nickname)" }
+    let(:range_index) { 'INDEX ON :Person(nickname)' }
   end
 
 
