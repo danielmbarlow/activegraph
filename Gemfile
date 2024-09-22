@@ -10,6 +10,7 @@ group 'test' do
   gem 'overcommit'
   gem 'codecov', require: false
   gem 'simplecov', require: false
+  gem 'simplecov-cobertura', require: false
   gem 'simplecov-html', require: false
   gem 'its'
   gem 'test-unit'
